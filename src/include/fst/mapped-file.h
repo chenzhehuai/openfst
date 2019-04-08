@@ -41,7 +41,7 @@ class MappedFile {
   // source argument needs to contain the filename that was used to open the
   // input stream.
   static MappedFile *Map(std::istream *istrm, bool memorymap,
-                         const string &source, size_t size);
+                         const string &source, size_t size, int mmap_flags = 0);
 
   // Creates a MappedFile object with a new[]'ed block of memory of size. The
   // align argument can be used to specify a desired block alignment.
