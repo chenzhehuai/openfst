@@ -113,7 +113,8 @@ FstReadOptions::FstReadOptions(const string &source, const FstHeader *header,
       isymbols(isymbols),
       osymbols(osymbols),
       read_isymbols(true),
-      read_osymbols(true) {
+      read_osymbols(true),
+      mmap_flags(0) {
   mode = ReadMode(FLAGS_fst_read_mode);
 }
 
@@ -125,7 +126,8 @@ FstReadOptions::FstReadOptions(const string &source,
       isymbols(isymbols),
       osymbols(osymbols),
       read_isymbols(true),
-      read_osymbols(true) {
+      read_osymbols(true),
+      mmap_flags(0) {
   mode = ReadMode(FLAGS_fst_read_mode);
 }
 

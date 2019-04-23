@@ -65,6 +65,8 @@ struct FstReadOptions {
   bool read_isymbols;           // Read isymbols, if any (default: true).
   bool read_osymbols;           // Read osymbols, if any (default: true).
 
+  int mmap_flags;
+
   explicit FstReadOptions(const string &source = "<unspecified>",
                           const FstHeader *header = nullptr,
                           const SymbolTable *isymbols = nullptr,

@@ -35,7 +35,7 @@ MappedFile::~MappedFile() {
 }
 
 MappedFile *MappedFile::Map(std::istream *istrm, bool memorymap,
-                            const string &source, size_t size) {
+                            const string &source, size_t size, int mmap_flags) {
   const auto spos = istrm->tellg();
   VLOG(1) << "memorymap: " << (memorymap ? "true" : "false") << " source: \""
           << source << "\""
@@ -47,8 +47,9 @@ MappedFile *MappedFile::Map(std::istream *istrm, bool memorymap,
       const int pagesize = sysconf(_SC_PAGESIZE);
       const off_t offset = pos % pagesize;
       const off_t upsize = size + offset;
+      int mmap_flags_used = mmap_flags?mmap_flags:MAP_SHARED;
       void *map =
-          mmap(nullptr, upsize, PROT_READ, MAP_SHARED, fd, pos - offset);
+          mmap(nullptr, upsize, PROT_READ, mmap_flags_used, fd, pos - offset);
       auto *data = reinterpret_cast<char *>(map);
       if (close(fd) == 0 && map != MAP_FAILED) {
         MemoryRegion region;

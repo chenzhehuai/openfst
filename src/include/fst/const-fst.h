@@ -212,7 +212,7 @@ ConstFstImpl<Arc, Unsigned> *ConstFstImpl<Arc, Unsigned>::Read(
   }
   size_t b = impl->nstates_ * sizeof(ConstState);
   impl->states_region_.reset(
-      MappedFile::Map(&strm, opts.mode == FstReadOptions::MAP, opts.source, b));
+      MappedFile::Map(&strm, opts.mode == FstReadOptions::MAP, opts.source, b, opts.mmap_flags));
   if (!strm || !impl->states_region_) {
     LOG(ERROR) << "ConstFst::Read: Read failed: " << opts.source;
     return nullptr;
@@ -225,7 +225,7 @@ ConstFstImpl<Arc, Unsigned> *ConstFstImpl<Arc, Unsigned>::Read(
   }
   b = impl->narcs_ * sizeof(Arc);
   impl->arcs_region_.reset(
-      MappedFile::Map(&strm, opts.mode == FstReadOptions::MAP, opts.source, b));
+      MappedFile::Map(&strm, opts.mode == FstReadOptions::MAP, opts.source, b, opts.mmap_flags));
   if (!strm || !impl->arcs_region_) {
     LOG(ERROR) << "ConstFst::Read: Read failed: " << opts.source;
     return nullptr;
